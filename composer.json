@@ -1,0 +1,23 @@
+{
+    "name": "gianfriaur/laravel-dynamic-relation",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Gianfriaur\\LaravelDynamicRelation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "GianfriAur",
+            "email": "gianfri.aur@live.com"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Gianfriaur\\LaravelDynamicRelation\\LaravelDynamicRelationServiceProvider"
+            ]
+        }
+    }
+}
