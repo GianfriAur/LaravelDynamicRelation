@@ -2,7 +2,7 @@
 
 namespace Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService;
 
-use Gianfriaur\LaravelDynamicRelation\Describer\RelationDescriberInterface;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\RelationDescriberInterface;
 use Illuminate\Foundation\Application;
 
 interface DynamicRelationBuilderServiceInterface

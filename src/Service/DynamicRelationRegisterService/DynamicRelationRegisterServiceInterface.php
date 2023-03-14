@@ -2,9 +2,8 @@
 
 namespace Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationRegisterService;
 
-use Gianfriaur\LaravelDynamicRelation\Describer\FullRelationDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\RelationDescriberInterface;
-use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService\DefaultDynamicRelationBuilderServiceService;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\FullRelationDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\RelationDescriberInterface;
 use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService\DynamicRelationBuilderServiceInterface;
 use Illuminate\Foundation\Application;
 

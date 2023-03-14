@@ -2,11 +2,11 @@
 
 namespace Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService;
 
-use Gianfriaur\LaravelDynamicRelation\Describer\BelongsToDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\ManyToManyDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\OneToManyDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\OneToOneDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\RelationDescriberInterface;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\BelongsToDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\ManyToManyDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\OneToManyDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\OneToOneDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\RelationDescriberInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;

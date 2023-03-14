@@ -1,6 +1,6 @@
 <?php
 
-namespace Gianfriaur\LaravelDynamicRelation\Describer;
+namespace Gianfriaur\LaravelDynamicRelation\Describer\Relation;
 
 readonly class BelongsToDescriber implements RelationDescriberInterface
 {

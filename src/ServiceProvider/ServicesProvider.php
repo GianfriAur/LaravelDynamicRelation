@@ -7,6 +7,7 @@ use Gianfriaur\LaravelDynamicRelation\Exception\DynamicRelationBadServiceDefinit
 use Gianfriaur\LaravelDynamicRelation\Exception\DynamicRelationMissingConfigException;
 use Gianfriaur\LaravelDynamicRelation\LaravelDynamicRelationServiceProvider;
 use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService\DynamicRelationBuilderServiceInterface;
+use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationDriverService\DynamicRelationDriverServiceInterface;
 use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationRegisterService\DynamicRelationRegisterServiceInterface;
 use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorService\DynamicRelationValidatorServiceInterface;
 use Illuminate\Support\ServiceProvider;
@@ -26,11 +27,15 @@ class ServicesProvider extends ServiceProvider
         $this->registerBuilderService();
         $this->registerRegisterService();
 
-        $has_validator =  $this->registerValidatorService();
+        $has_driver =  $this->registerDriverService();
 
-        if ($this->app->runningInConsole()) {
-            if ($has_validator){
-                $this->registerCommands();
+        if ($has_driver) {
+            $has_validator =  $this->registerValidatorService();
+
+            if ($this->app->runningInConsole()) {
+                if ($has_validator){
+                    $this->registerCommands();
+                }
             }
         }
     }
@@ -72,11 +77,11 @@ class ServicesProvider extends ServiceProvider
         $collection_value = $this->getConfig($collection);
 
         if (!isset($collection_value['drivers'])) throw new DynamicRelationBadServiceDefinitionException($selector_value, 'drivers is missing in collection ' . $collection);
-        if (!isset($collection_value['shared_options'])) throw new DynamicRelationBadServiceDefinitionException($selector_value, 'shared_options is missing in collection ' . $collection);
+        if (!isset($collection_value['shared_drivers_options'])) throw new DynamicRelationBadServiceDefinitionException($selector_value, 'shared_options is missing in collection ' . $collection);
 
 
         $collection_value_drivers = $collection_value['drivers'];
-        $collection_value_shared_options = $collection_value['shared_options'];
+        $collection_value_shared_options = $collection_value['shared_drivers_options'];
 
         if (!isset($collection_value_drivers[$selector_value])) throw new DynamicRelationBadServiceDefinitionException($selector_value, 'service is missing in collection ' . $collection);
         if (!isset($collection_value_drivers[$selector_value]['class'])) throw new DynamicRelationBadServiceDefinitionException($selector_value, 'service not define a class in  ' . $collection);
@@ -115,18 +120,39 @@ class ServicesProvider extends ServiceProvider
 
         $this->app->alias(DynamicRelationRegisterServiceInterface::class, 'dynamic_relation.register');
     }
+
+    /**
+     * @throws DynamicRelationBadServiceDefinitionException
+     * @throws DynamicRelationMissingConfigException
+     */
+    private function registerDriverService():bool
+    {
+        [$service_class, $service_options] = $this->getDriverServiceDefinition('relation_driver', 'relation_validators');
+
+        if ($service_class == null) return false;
+
+        $this->app->singleton(DynamicRelationDriverServiceInterface::class, function ($app) use ($service_class, $service_options) {
+            return new $service_class($app, $app->get('dynamic_relation.register'), $service_options);
+        });
+
+        $this->app->alias(DynamicRelationDriverServiceInterface::class, 'dynamic_relation.driver');
+
+        return true;
+    }
+
+
     /**
      * @throws DynamicRelationBadServiceDefinitionException
      * @throws DynamicRelationMissingConfigException
      */
     private function registerValidatorService():bool
     {
-        [$service_class, $service_options] = $this->getDriverServiceDefinition('relation_validator', 'relation_validators');
+        [$service_class, $service_options] = $this->getServiceDefinition('relation_validator', 'relation_validators.providers');
 
         if ($service_class == null) return false;
 
         $this->app->singleton(DynamicRelationValidatorServiceInterface::class, function ($app) use ($service_class, $service_options) {
-            return new $service_class($app, $app->get('dynamic_relation.register'), $service_options);
+            return new $service_class($app, $app->get('dynamic_relation.driver'), $service_options);
         });
 
         $this->app->alias(DynamicRelationValidatorServiceInterface::class, 'dynamic_relation.validator');

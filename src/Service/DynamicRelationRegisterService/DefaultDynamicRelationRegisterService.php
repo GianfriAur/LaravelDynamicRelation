@@ -3,16 +3,15 @@
 namespace Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationRegisterService;
 
 use Exception;
-use Gianfriaur\LaravelDynamicRelation\Describer\BelongsToDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\FullRelationDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\OneToManyDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\OneToOneDescriber;
-use Gianfriaur\LaravelDynamicRelation\Describer\RelationDescriberInterface;
-use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService\DefaultDynamicRelationBuilderServiceService;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\BelongsToDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\FullRelationDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\OneToManyDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\OneToOneDescriber;
+use Gianfriaur\LaravelDynamicRelation\Describer\Relation\RelationDescriberInterface;
 use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationBuilderService\DynamicRelationBuilderServiceInterface;
 use Illuminate\Foundation\Application;
 
-class DefaultDynamicRelationRegisterServiceService implements DynamicRelationRegisterServiceInterface
+class DefaultDynamicRelationRegisterService implements DynamicRelationRegisterServiceInterface
 {
 
     private array $relations = [];

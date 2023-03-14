@@ -1,8 +1,8 @@
 <?php
 
-namespace Gianfriaur\LaravelDynamicRelation\Describer;
+namespace Gianfriaur\LaravelDynamicRelation\Describer\Relation;
 
-readonly class OneToManyDescriber implements RelationDescriberInterface
+readonly class OneToOneDescriber implements RelationDescriberInterface
 {
 
     public function __construct(

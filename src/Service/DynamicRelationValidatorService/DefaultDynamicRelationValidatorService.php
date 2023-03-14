@@ -5,7 +5,9 @@ namespace Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorServ
 use Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationDriverService\DynamicRelationDriverServiceInterface;
 use Illuminate\Foundation\Application;
 
-interface DynamicRelationValidatorServiceInterface
+class DefaultDynamicRelationValidatorService implements DynamicRelationValidatorServiceInterface
 {
-    public function __construct(Application $app, DynamicRelationDriverServiceInterface $dynamicRelationDriverService, array $options);
+    public function __construct(Application $app, DynamicRelationDriverServiceInterface $dynamicRelationDriverService, array $options)
+    {
+    }
 }
