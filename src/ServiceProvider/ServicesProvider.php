@@ -54,6 +54,7 @@ class ServicesProvider extends ServiceProvider
     /**
      * @throws DynamicRelationMissingConfigException
      * @throws DynamicRelationBadServiceDefinitionException
+     * @noinspection DuplicatedCode
      */
     private function getServiceDefinition(string $selector, string $collection, bool $nullable = true): array
     {
@@ -69,6 +70,8 @@ class ServicesProvider extends ServiceProvider
     /**
      * @throws DynamicRelationMissingConfigException
      * @throws DynamicRelationBadServiceDefinitionException
+     * @noinspection DuplicatedCode
+     * @noinspection PhpSameParameterValueInspection
      */
     private function getDriverServiceDefinition(string $selector, string $collection, bool $nullable = true): array
     {
@@ -152,7 +155,7 @@ class ServicesProvider extends ServiceProvider
         if ($service_class == null) return false;
 
         $this->app->singleton(DynamicRelationValidatorServiceInterface::class, function ($app) use ($service_class, $service_options) {
-            return new $service_class($app, $app->get('dynamic_relation.driver'), $service_options);
+            return new $service_class($app,$app->get('dynamic_relation.register'), $app->get('dynamic_relation.driver'), $service_options);
         });
 
         $this->app->alias(DynamicRelationValidatorServiceInterface::class, 'dynamic_relation.validator');

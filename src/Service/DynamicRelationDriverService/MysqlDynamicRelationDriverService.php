@@ -103,6 +103,7 @@ class MysqlDynamicRelationDriverService implements DynamicRelationDriverServiceI
             $row['Column_name'],
             $row['Key_name'],
             $row['Key_name'] === "PRIMARY",
+            $row['Non_unique'] == "0",
             $row['Cardinality'] ?? null,
             $row['Index_type']
         ));

@@ -49,16 +49,12 @@ return [
             'default' => [
                 'class'=> Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorService\DefaultDynamicRelationValidatorService::class,
                 'options' => [
-                    // show a warning if the validation finds problems on the performance of the tables (ex missing foreign_key or index)
-                    'show_performance_warning' => true,
-                    // show a warning if the validation finds problems between the types of the keys
-                    'show_colum_type_warning' => true,
-
-                    // show a warning if the validation finds a missing inverse relation
-                    'show_inverse_relation_missing_warning' => true,
-
-                    // alert with error if the validation find a missing foreign_key
-                    'missing_foreign_key_is_error' => false,
+                    'validations'=>[
+                        Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorService\Validator\TableExistValidator::class,
+                        Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorService\Validator\OneToOneRelationValidator::class,
+                        Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorService\Validator\BelongsToRelationValidator::class,
+                        Gianfriaur\LaravelDynamicRelation\Service\DynamicRelationValidatorService\Validator\OneToManyRelationValidator::class
+                    ]
                 ]
             ]
         ]

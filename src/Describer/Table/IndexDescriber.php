@@ -8,6 +8,7 @@ class IndexDescriber
         public string $name ,
         public string $key_name ,
         public bool $primary,
+        public bool $unique,
         public ?int $cardinality ,
         public string $type
     )
